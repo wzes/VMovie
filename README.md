@@ -119,7 +119,32 @@ elementFormDefault="qualified">
 ```
 ##### 2.3 Android端设计
 ###### 2.3.1 框架mvp
- 
+1.BaseView 定义baseView
+```
+public interface BaseView<T> {
+
+    void setPresenter(T presenter);
+
+}
+```
+2.BasePresenter 定义basePresenter
+```
+public interface BasePresenter {
+
+    void start();
+
+}
+```
+3.Contract 定义具体接口
+```
+public interface Contract {
+    interface View extends BaseView<Presenter> {
+    }    
+    interface Presenter extends BasePresenter {
+    }
+}
+```
+
 #### 3. 界面设计(描述)
 ### 五、代码开发　　
 
