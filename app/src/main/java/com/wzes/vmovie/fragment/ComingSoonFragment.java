@@ -229,7 +229,9 @@ public class ComingSoonFragment extends Fragment {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                 Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-                                intent.putExtra("movie_id", list.get(position).getId());
+                                intent.putExtra("id", list.get(position).getId());
+                                intent.putExtra("title", list.get(position).getTitle());
+                                intent.putExtra("image", list.get(position).getImage());
                                 startActivity(intent);
                             }
                         });

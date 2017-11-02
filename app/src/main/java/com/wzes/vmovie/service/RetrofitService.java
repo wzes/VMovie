@@ -14,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
@@ -68,7 +69,7 @@ public interface RetrofitService {
     @GET("v2/movie/us_box")
     Observable<ResponseBody> getUsBoxList();
 
-    @GET("v2/subject/{id}")
-    Observable<ResponseBody> getSubject(@Query("id") String id);
+    @GET("v2/movie/subject/{id}")
+    Observable<ResponseBody> getSubject(@Path("id") String id);
 
 }
