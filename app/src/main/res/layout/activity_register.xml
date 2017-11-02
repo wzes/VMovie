@@ -1,9 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context="com.wzes.vmovie.activity.RegisterActivity">
+    <LinearLayout
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+        <ImageButton
+            android:id="@+id/follow_back"
+            android:background="@drawable/ic_arrow_white_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_gravity="center_vertical" />
+        <TextView
+            android:textSize="@dimen/title_size"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            android:textColorHint="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <EditText
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/white"
+                android:textColorHint="@color/white"
+                android:id="@+id/register_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_username"
+                android:maxLines="1"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:textColorHint="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:textColor="@color/white"
+                android:id="@+id/register_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_password"
+                android:maxLines="1"
+                android:inputType="textPassword"
+                android:imeOptions="normal|actionUnspecified"
+                android:imeActionLabel="@string/action_sign_in_short" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:textColorHint="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:textColor="@color/white"
+                android:id="@+id/register_password_again"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="再次输入密码"
+                android:maxLines="1"
+                android:inputType="textPassword"
+                android:imeOptions="normal|actionUnspecified"
+                android:imeActionLabel="@string/action_sign_in_short" />
+        </android.support.design.widget.TextInputLayout>
+        <Button
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:id="@+id/register_sign"
+            android:background="@drawable/ripple_sign_in_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/register"
+            style="?android:textAppearanceSmall" />
+    </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -1,9 +1,13 @@
 package com.wzes.vmovie.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,8 +15,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.wzes.vmovie.R;
 import com.wzes.vmovie.base.AppManager;
@@ -20,8 +26,12 @@ import com.wzes.vmovie.base.Preferences;
 import com.wzes.vmovie.bean.User;
 import com.wzes.vmovie.service.BaseUrlService;
 import com.wzes.vmovie.service.MyRetrofit;
+import com.wzes.vmovie.util.MyLog;
 import com.wzes.vmovie.util.NetworkUtils;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -32,8 +42,18 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
+
+import static okhttp3.internal.http.HttpHeaders.*;
 
 public class LoginActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
@@ -60,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
         ButterKnife.bind(this);
 
         AppManager.getAppManager().addActivity(this);
+
         /*
          * request for database if local not username
          */
@@ -86,6 +107,23 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
         }
     }
 
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch(msg.what) {
+                case 0:
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    Preferences.saveUserAccount(loginUsername.getText().toString());
+                    finish();
+                    break;
+                case 1:
+                    loginSign.setText("立即登录");
+                    break;
+            }
+        }
+    };
+
     // check login
     private void attemptLogin() {
         if(loginSign.getText().toString().equals("正在登录...")) {
@@ -101,40 +139,40 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
                 loginUsername.setError(getString(R.string.error_field_required));
                 return;
             }
-            loginSign.setText("正在登录...");
-            MyRetrofit.getInstance().getGsonRetrofit(BaseUrlService.SERVER)
-                    .login(username, password)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<User>() {
-                        @Override
-                        public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+            loginSign.setText("正在登录..");
 
-                        }
+            OkHttpClient okHttpClient = new OkHttpClient();
 
-                        @Override
-                        public void onNext(@io.reactivex.annotations.NonNull User user) {
-                            if(user != null){
-                                loginState = true;
-                            }
-                        }
+            FormBody.Builder formBody = new FormBody.Builder();
+            formBody.add("username", username);
+            formBody.add("password", password);
+            RequestBody requestBody = formBody.build();
 
-                        @Override
-                        public void onError(@io.reactivex.annotations.NonNull Throwable e) {
-                            Toast.makeText(LoginActivity.this, "网络不太好", Toast.LENGTH_SHORT).show();
-                        }
+            Request request = new Request.Builder()
+                    .url("http://59.110.136.134:10001/vmovie/login")
+                    .post(requestBody)
+                    .build();
 
-                        @Override
-                        public void onComplete() {
-                            if(loginState){
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                finish();
-                                loginState = false;
-                            }else{
-                                loginState = false;
-                            }
-                        }
-                    });
+            Call call = okHttpClient.newCall(request);
+
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    handler.sendEmptyMessage(1);
+                    MyLog.i(e.getMessage());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    User user = JSON.parseObject(response.body().string(), User.class);
+                    if(user != null){
+                        handler.sendEmptyMessage(0);
+                    }else {
+                        MyLog.i(response.body().string());
+                    }
+                }
+            });
+
         }
     }
 
@@ -144,6 +182,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_register:
+                startActivity(new Intent(this, RegisterActivity.class));
                 break;
             case R.id.login_sign:
                 internetTask();

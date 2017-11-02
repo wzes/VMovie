@@ -6,6 +6,6 @@ package com.wzes.vmovie.service;
 
 public class BaseUrlService {
 
-    public static final String DOUBAN = "https://api.douban.com";
-    public static final String SERVER = "http://118.89.111.157:9999";
+    public static final String DOUBAN = "https://api.douban.com/";
+    public static final String SERVER = "http://59.110.136.134:10001/";
 }
