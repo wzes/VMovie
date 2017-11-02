@@ -58,16 +58,16 @@ public interface RetrofitService {
      */
 
     @GET("v2/movie/in_theaters")
-    Observable<ResponseBody> getInTheaterList();
+    Observable<ResponseBody> getInTheaterList(@Query("start") int start);
 
     @GET("v2/movie/coming_soon")
     Observable<ResponseBody> getComingSoonList(@Query("start") int start);
 
     @GET("v2/movie/top250")
-    Observable<ResponseBody> getTop250List();
+    Observable<ResponseBody> getTop250List(@Query("start") int start);
 
     @GET("v2/movie/us_box")
-    Observable<ResponseBody> getUsBoxList();
+    Observable<ResponseBody> getUsBoxList(@Query("start") int start);
 
     @GET("v2/movie/subject/{id}")
     Observable<ResponseBody> getSubject(@Path("id") String id);

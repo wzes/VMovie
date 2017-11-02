@@ -25,9 +25,11 @@ import com.wzes.vmovie.bean.Movie;
 import com.wzes.vmovie.service.BaseUrlService;
 import com.wzes.vmovie.service.MyRetrofit;
 import com.wzes.vmovie.util.CustomLoadMoreView;
+import com.wzes.vmovie.util.DoubanData;
 import com.wzes.vmovie.util.MyLog;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wzes.vmovie.util.OnLoadMoreListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ import okhttp3.ResponseBody;
 
 public class ComingSoonFragment extends Fragment {
 
-    private static List<Movie> list;
+    private List<Movie> list;
     private MovieAdapter movieAdapter;
 
     private static int TOTAL_COUNTER = 0;
@@ -108,13 +110,6 @@ public class ComingSoonFragment extends Fragment {
                 });
     }
 
-    /**
-     *
-     */
-    public interface OnLoadMoreListener {
-        void onSuccess(String data);
-        void onFail();
-    }
 
     /**
      * refresh data from douban
@@ -139,7 +134,7 @@ public class ComingSoonFragment extends Fragment {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        list = parserData(data);
+                        list = DoubanData.parser(data);
                     }
 
                     @Override
@@ -178,7 +173,8 @@ public class ComingSoonFragment extends Fragment {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        list = parserData(data);
+                        list = DoubanData.parser(data);
+                        TOTAL_COUNTER = DoubanData.getTotal(data);
                     }
 
                     @Override
@@ -208,7 +204,7 @@ public class ComingSoonFragment extends Fragment {
                                     loadMore(new OnLoadMoreListener() {
                                         @Override
                                         public void onSuccess(String data) {
-                                            movieAdapter.addData(parserData(data));
+                                            movieAdapter.addData(DoubanData.parser(data));
                                             movieAdapter.loadMoreComplete();
                                         }
 
@@ -246,59 +242,13 @@ public class ComingSoonFragment extends Fragment {
                 });
     }
 
-    /**
-     *
-     * @param data
-     * @return
-     */
-    public static List<Movie> parserData(String data) {
-        List<Movie> movies = new ArrayList<>();
-        // System.out.println(response);
-        JSONObject jsonObject = JSONObject.parseObject(data);
-        // jsonObject.get("subjects");
-        TOTAL_COUNTER = Integer.valueOf(jsonObject.get("total").toString());
-        mCurrentCounter = Integer.valueOf(jsonObject.get("start").toString());
-        MyLog.i(TOTAL_COUNTER + " " + mCurrentCounter);
-        JSONArray jsonArray = JSONArray.parseArray(jsonObject.getString("subjects"));
-        for( Object jsonObject1 : jsonArray) {
-            JSONObject jsonObject2 = JSONObject.parseObject(jsonObject1.toString());
-            // images
-            JSONObject images = JSONObject.parseObject(jsonObject2.get("images").toString());
-            // large image
-            String image = images.get("large").toString();
-
-            JSONObject ratings = JSONObject.parseObject(jsonObject2.get("rating").toString());
-            //　average rating
-            String rating = ratings.get("average").toString();
-
-            // title
-            String title = jsonObject2.get("title").toString();
-
-            // id
-            String id = jsonObject2.get("id").toString();
-            MyLog.i(title + " " + id + " " + rating + " " + image);
-            Movie movie = new Movie();
-            movie.setId(id);
-            movie.setTitle(title);
-            movie.setImage(image);
-            movie.setRating(rating);
-            movies.add(movie);
-        }
-        MyLog.i(data);
-        return movies;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_coming_soon, container, false);
         unbinder = ButterKnife.bind(this, view);
-        if(list == null) {
-            initData();
-        }else {
-            refreshData();
-        }
+        initData();
         return view;
     }
 
