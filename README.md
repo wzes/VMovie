@@ -78,15 +78,17 @@ My project aims to implement a movie tracking app based on douban apis and using
 ##### 2.1 整体架构  
 客户端采用mvp设计模式搭建app,　服务端使用springboot, 数据库使用mysql
 ##### 2.2 后端设计
+![ ](/home/xuantang/IdeaProjects/Vmovie/MovieLink.png  "arch")
 ###### 2.2.1 使用springboot+mybatis对外提供服务接口
 - 注册接口　POST /register 提交两个参数，username和password(密文),拦截到请求后执行插入数据库操作并返回结果.
 - 登录接口　POST /login 提交两个字段，username和password,拦截后查询数据库是否匹配并返回结果。
 - 添加收藏接口　POST /collection/ 提交两个字段，movie_id 和username, 拦截后获取字段信息插入数据库并返回结果。
 - 查看收藏接口　POST /collections/:username  提交一个字段，查询数据库并返回结果列表，已xml格式数据返回
 - 删除收藏接口　DELETE /collection  提交两个字段，movie_id 和username, 拦截后获取字段信息删除数据库字段并返回结果。
+- 查找电影接口 /search/moviename 提交一个字段，moviename　返回一个列表
 ###### 2.2.2 XML Schama文件格式 (movie.xsd)
 ```
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
 targetNamespace="http://www.w3schools.com"
 xmlns="http://www.w3schools.com"
@@ -103,7 +105,7 @@ elementFormDefault="qualified">
 ```
 ###### 2.2.3 XML 传输文件
 ```
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <movies xmlns="http://www.microsoft.com"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:SchemaLocation="http://*movie.xsd">
