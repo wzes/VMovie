@@ -60,11 +60,11 @@ My project aims to implement a movie tracking app based on douban apis and using
 	添加收藏(自定义接口，返回json数据)
 	POST /collection (post json数据)
 	删除收藏(自定义接口，返回json数据)
-	DELETE /collection/:id
+	DELETE /:username/collection/:movie_id
 	自定义收藏列表(自定义接口，返回xml数据)
-	GET /collections/:id
+	GET /:username/collections/
 	下载链接获取(自定义接口，返回json数据)
-	GET /link/:id(自定义接口，返回json数据)
+	GET /search/:moviename(自定义接口，返回json数据)
 	注册(自定义接口，返回json数据)
 	POST /register 提交内容username passwd 进行加密处理
 	登录(自定义接口，返回json数据)
@@ -78,7 +78,7 @@ My project aims to implement a movie tracking app based on douban apis and using
 ##### 2.1 整体架构  
 客户端采用mvp设计模式搭建app,　服务端使用springboot, 数据库使用mysql
 ##### 2.2 后端设计
-![ ](/home/xuantang/IdeaProjects/Vmovie/MovieLink.png  "arch")
+![ ](image/MovieLink.png  "arch")
 ###### 2.2.1 使用springboot+mybatis对外提供服务接口
 - 注册接口　POST /register 提交两个参数，username和password(密文),拦截到请求后执行插入数据库操作并返回结果.
 - 登录接口　POST /login 提交两个字段，username和password,拦截后查询数据库是否匹配并返回结果。
