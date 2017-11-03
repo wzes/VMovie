@@ -21,8 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity"
-            android:theme="@style/BaseAppTheme"/>
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:theme="@style/BaseAppTheme" />
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main"
@@ -30,9 +31,11 @@
         <activity android:name=".activity.MovieDetailActivity" />
         <activity
             android:name=".activity.CollectionActivity"
-            android:theme="@style/BaseAppTheme"></activity>
-        <activity android:name=".activity.AboutActivity"
-            android:theme="@style/BaseAppTheme"/>
+            android:theme="@style/BaseAppTheme" />
+        <activity
+            android:name=".activity.AboutActivity"
+            android:theme="@style/BaseAppTheme" />
+        <activity android:name=".activity.DownloadActivity"></activity>
     </application>
 
 </manifest>
