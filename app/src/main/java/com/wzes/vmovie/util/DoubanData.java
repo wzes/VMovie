@@ -14,17 +14,24 @@ import java.util.List;
 public class DoubanData {
 
 
-    public static int getCurrent(String data){
+    public static int getCurrent(String data) {
         JSONObject jsonObject = JSONObject.parseObject(data);
         return Integer.valueOf(jsonObject.get("start").toString());
     }
 
-    public static int getTotal(String data){
+    public static int getTotal(String data) {
         JSONObject jsonObject = JSONObject.parseObject(data);
         return Integer.valueOf(jsonObject.get("total").toString());
     }
 
-    public static List<Movie> parserBox(String data){
+    public static String parserArray(String data){
+        return data.replace("\"", "")
+                .replace("[", "")
+                .replace("]", "");
+
+    }
+
+    public static List<Movie> parserBox(String data) {
         List<Movie> movies = new ArrayList<>();
         JSONObject jsonObject = JSONObject.parseObject(data);
         // jsonObject.get("subjects");

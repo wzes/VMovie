@@ -43,11 +43,10 @@ public interface RetrofitService {
     Observable<User> login(@Query("username") String username,
                            @Query("password") String password);
 
-    @POST("collection")
-    @Multipart
-    Observable<ResponseBody> addCollection(@Field("username") String username,
-                                           @Field("movie_id") String movie_id,
-                                           @Field("data") String data);
+    @GET("movie_collection")
+    Observable<ResponseBody> addCollection(@Query("username") String username,
+                                           @Query("movie_id") String movie_id,
+                                           @Query("data") String data);
 
     @DELETE("{username}/collection/{movie_id}")
     @Multipart

@@ -15,9 +15,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.wzes.vmovie.R;
 import com.wzes.vmovie.adapter.MainPagerAdapter;
+import com.wzes.vmovie.base.Preferences;
 import com.wzes.vmovie.fragment.ComingSoonFragment;
 import com.wzes.vmovie.fragment.InTheaterFragment;
 import com.wzes.vmovie.fragment.Top250Fragment;
@@ -55,7 +57,11 @@ public class MainActivity extends AppCompatActivity
 
         navView.setNavigationItemSelectedListener(this);
 
-
+        // header name
+        View headerView = navView.getHeaderView(0);
+        TextView titleTxt = headerView.findViewById(R.id.header_title);
+        titleTxt.setText(Preferences.getUserAccount());
+        // pager
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(),
                 getApplicationContext(), InTheaterFragment.newInstance(),
                 ComingSoonFragment.newInstance(), Top250Fragment.newInstance(),
