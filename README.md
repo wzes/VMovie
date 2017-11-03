@@ -148,6 +148,7 @@ public interface Contract {
 ```
 
 #### 3. 界面设计(描述)
+![ 1](image/image_1.png) ![ 1](image/image_2.png) ![ 1](image/image_3.png) ![ 1](image/image_4.png) ![ 1](image/image_5.png) ![ 1](image/image_6.png) ![ 1](image/image_7.png)
 ### 五、代码开发　　
 
 ### 六、测试　　

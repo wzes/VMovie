@@ -116,6 +116,10 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, CollectionActivity.class));
         } else if (id == R.id.nav_share) {
             startActivity(new Intent(MainActivity.this, AboutActivity.class));
+        }else if (id == R.id.nav_send) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            Preferences.saveUserAccount(null);
+            finish();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

@@ -118,6 +118,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
                     finish();
                     break;
                 case 1:
+                    Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
                     loginSign.setText("立即登录");
                     break;
             }
@@ -129,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
         if(loginSign.getText().toString().equals("正在登录...")) {
             Toast.makeText(this, "正在登录", Toast.LENGTH_SHORT).show();
         }else{
-            String username = loginUsername.getText().toString();
+            final String username = loginUsername.getText().toString();
             String password = loginPassword.getText().toString();
             if (TextUtils.isEmpty(password)) {
                 loginPassword.setError(getString(R.string.error_invalid_password));
@@ -163,12 +164,18 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
                 }
 
                 @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    User user = JSON.parseObject(response.body().string(), User.class);
-                    if(user != null){
+                public void onResponse(Call call, Response response) {
+                    String res = null;
+                    try {
+                        res = response.body().string();
+                    } catch (IOException e) {
+                        MyLog.i(e.getMessage());
+                    }
+                    User user = JSON.parseObject(res, User.class);
+                    if(user != null && user.getUsername() != null){
                         handler.sendEmptyMessage(0);
                     }else {
-                        MyLog.i(response.body().string());
+                        handler.sendEmptyMessage(1);
                     }
                 }
             });
