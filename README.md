@@ -148,11 +148,19 @@ public interface Contract {
 ```
 
 #### 3. 界面设计(描述)
-![ 1](image/image_1.png) ![ 1](image/image_2.png) ![ 1](image/image_3.png) ![ 1](image/image_4.png) ![ 1](image/image_5.png) ![ 1](image/image_6.png) ![ 1](image/image_7.png)
-### 五、代码开发　　
-
-### 六、测试　　
-
+![ 1](image/image_1.png) ![ 1](image/image_2.png) ![ 1](image/image_3.png) ![ 1](image/image_4.png) ![ 1](image/image_5.png) ![ 1](image/image_6.png) ![ 1](image/image_7.png) ![ 1](image/image_8.png)
+### 五、工具　　
+用到的工具
+- xml解析工具 [dom4j](https://github.com/dom4j/dom4j)
+- http请求库 [okhttp](https://github.com/square/okhttp)
+- json解析 [fastjson](https://github.com/alibaba/fastjson)
+- 异步　[RxJava](https://github.com/ReactiveX/RxJava) 
+- 网络　[retrofit](https://github.com/square/retrofit) 
+- 图片加载　[glide](https://github.com/bumptech/glide) 
+- 注入　[butterknife](https://github.com/JakeWharton/butterknife)
+- 权限管理　[easypermission](https://github.com/googlesamples/easypermissions)  
+### 六、测试　
+###### 使用Postman测试接口　
 
 
 
