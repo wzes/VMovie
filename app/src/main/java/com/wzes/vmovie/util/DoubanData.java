@@ -91,7 +91,6 @@ public class DoubanData {
 
                 // id
                 String id = jsonObject2.get("id").toString();
-                MyLog.i(title + " " + id + " " + rating + " " + image);
                 Movie movie = new Movie();
                 movie.setId(id);
                 movie.setTitle(title);

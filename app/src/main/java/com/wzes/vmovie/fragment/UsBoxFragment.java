@@ -223,6 +223,7 @@ public class UsBoxFragment extends Fragment {
                                 intent.putExtra("id", list.get(position).getId());
                                 intent.putExtra("title", list.get(position).getTitle());
                                 intent.putExtra("image", list.get(position).getImage());
+                                intent.putExtra("rating", list.get(position).getRating());
                                 startActivity(intent);
                             }
                         });

@@ -1,5 +1,6 @@
 package com.wzes.vmovie.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            startActivity(new Intent(MainActivity.this, CollectionActivity.class));
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 

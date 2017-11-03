@@ -26,7 +26,11 @@
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.MovieDetailActivity"></activity>
+        <activity android:name=".activity.MovieDetailActivity" />
+        <activity android:name=".activity.CollectionActivity"
+            android:theme="@style/BaseAppTheme">
+
+        </activity>
     </application>
 
 </manifest>
