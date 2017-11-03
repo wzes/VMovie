@@ -43,7 +43,7 @@ public class DownloadService {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                onDownLoadListener.onSuccess(response.toString());
+                onDownLoadListener.onSuccess(response.body().string());
             }
         });
     }

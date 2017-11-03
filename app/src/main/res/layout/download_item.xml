@@ -10,7 +10,7 @@
         android:orientation="horizontal"
         android:background="@drawable/select_background"
         android:layout_width="match_parent"
-        android:layout_height="70dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="vertical"
@@ -46,14 +46,13 @@
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
             <TextView
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textSize="12sp"
                 android:autoLink="web"
                 android:textColor="@color/black"
                 android:id="@+id/download_item_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
+                android:layout_marginEnd="10dp"
                 android:textColorLink="#f0f"
                 android:text="http://dddd"
                 android:layout_marginStart="@dimen/dp_10"/>
