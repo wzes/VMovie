@@ -72,41 +72,6 @@ public class UsBoxFragment extends Fragment {
 
         return view;
     }
-    /**
-     *
-     * @param onLoadMoreListener
-     */
-//    public void loadMore(final OnLoadMoreListener onLoadMoreListener){
-//        MyRetrofit.getInstance().getNormalRetrofit(BaseUrlService.DOUBAN)
-//                .getUsBoxList(mCurrentCounter)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<ResponseBody>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(ResponseBody responseBody) {
-//                        try {
-//                            onLoadMoreListener.onSuccess(responseBody.string());
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        onLoadMoreListener.onFail();
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
-//    }
 
     /**
      * refresh data from douban
@@ -185,33 +150,6 @@ public class UsBoxFragment extends Fragment {
                         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
                         itemTouchHelper.attachToRecyclerView(usBoxRecyclerView);
                         movieAdapter.setEnableLoadMore(false);
-//                        movieAdapter.setLoadMoreView(new CustomLoadMoreView());
-//                        movieAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-//                            @Override
-//                            public void onLoadMoreRequested() {
-//                                mCurrentCounter += 20;
-//                                if (mCurrentCounter >= TOTAL_COUNTER) {
-//                                    //Data are all loaded.
-//                                    movieAdapter.loadMoreEnd();
-//                                } else {
-//                                    //list.add()
-//                                    // load more
-//                                    loadMore(new OnLoadMoreListener() {
-//                                        @Override
-//                                        public void onSuccess(String data) {
-//                                            movieAdapter.addData(DoubanData.parserBox(data));
-//                                            movieAdapter.loadMoreComplete();
-//                                        }
-//
-//                                        @Override
-//                                        public void onFail() {
-//                                            Toast.makeText(getContext(), "网络不太好", Toast.LENGTH_LONG).show();
-//                                            movieAdapter.loadMoreFail();
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        }, usBoxRecyclerView);
 
                         usBoxRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
                         usBoxRecyclerView.setAdapter(movieAdapter);

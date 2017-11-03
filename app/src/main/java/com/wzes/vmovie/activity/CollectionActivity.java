@@ -119,12 +119,44 @@ public class CollectionActivity extends AppCompatActivity {
                 case 1:
                     Toast.makeText(CollectionActivity.this, "网络不太好", Toast.LENGTH_LONG).show();
                     break;
+                case 3:
+                    Toast.makeText(CollectionActivity.this, "网络不太好", Toast.LENGTH_LONG).show();
+                    break;
+                case 4:
+                    Toast.makeText(CollectionActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                    break;
+
             }
         }
     };
 
     public void removeCollection(String id){
-        Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
+        OkHttpClient okHttpClient = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("http://59.110.136.134:10001/vmovie/" + Preferences.getUserAccount()+ "/movie_collection/" + id)
+                .delete()
+                .build();
+        Call call = okHttpClient.newCall(request);
+
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handler.sendEmptyMessage(3);
+                MyLog.i(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) {
+                try {
+                    data = response.body().string();
+                } catch (IOException e) {
+                    MyLog.i(data);
+                }
+                MyLog.i(data);
+                handler.sendEmptyMessage(4);
+            }
+        });
     }
 
     public void initData() {
