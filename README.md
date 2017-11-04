@@ -146,9 +146,12 @@ public interface Contract {
     }
 }
 ```
+###### 2.3.2 项目结构
+![ arch](image/arch.png)　分为七个包
+![ arch](image/arch1.png)　每个包下的实现
 
-#### 3. 界面设计(描述)
-![ 1](image/image_1.png) ![ 1](image/image_2.png) ![ 1](image/image_3.png) ![ 1](image/image_4.png) ![ 1](image/image_5.png) ![ 1](image/image_6.png) ![ 1](image/image_7.png) ![ 1](image/image_8.png)
+#### 3. 界面设计
+![登录](image/image_1.png) ![ 注册](image/image_2.png) ![ 主页面](image/image_3.png) ![ 设置](image/image_4.png) ![ 收藏](image/image_5.png) ![ 左划删除](image/image_6.png) ![ 关于](image/image_7.png) ![ 详细](image/image_8.png) ![ 下载入口](image/image_9.png) 　![ 复制链接](image/image_10.png)
 ### 五、工具　　
 用到的工具
 - xml解析工具 [dom4j](https://github.com/dom4j/dom4j)
@@ -159,9 +162,12 @@ public interface Contract {
 - 图片加载　[glide](https://github.com/bumptech/glide) 
 - 注入　[butterknife](https://github.com/JakeWharton/butterknife)
 - 权限管理　[easypermission](https://github.com/googlesamples/easypermissions)  
+- springboot [springboot](https://github.com/topics/springboot) 
+- jsoup [jsoup](https://github.com/jhy/jsoup) 
 ### 六、测试　
 ###### 使用Postman测试接口　
-
+### 七、部署
+　vmovie.jar 部署在阿里云ECS. vmovie.apk 安装在android手机上
 
 
 

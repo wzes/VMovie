@@ -1,0 +1,404 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Made with Remarkable!
+  </title>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/github.min.css" rel="stylesheet"/>
+  <style type="text/css">
+   body,table tr{background-color:#fff}table tr td,table tr th{border:1px solid #ccc;text-align:left;padding:6px 13px;margin:0}pre code,table,table tr{padding:0}hr,pre code{background:0 0}body{font:16px Helvetica,Arial,sans-serif;line-height:1.4;color:#333;word-wrap:break-word;padding:10px 15px}strong,table tr th{font-weight:700}h1{font-size:2em;margin:.67em 0;text-align:center}h2{font-size:1.75em}h3{font-size:1.5em}h4{font-size:1.25em}h1,h2,h3,h4,h5,h6{font-weight:700;position:relative;margin-top:15px;margin-bottom:15px;line-height:1.1}h1,h2{border-bottom:1px solid #eee}hr{height:0;margin:15px 0;overflow:hidden;border:0;border-bottom:1px solid #ddd}a{color:#4183C4}a.absent{color:#c00}ol,ul{padding-left:15px;margin-left:5px}ol{list-style-type:lower-roman}table tr{border-top:1px solid #ccc;margin:0}table tr:nth-child(2n){background-color:#aaa}table tr td :first-child,table tr th :first-child{margin-top:0}table tr td:last-child,table tr th :last-child{margin-bottom:0}img{max-width:100%}blockquote{padding:0 15px;border-left:4px solid #ccc}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;white-space:pre;border:none}.highlight pre,pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}
+  </style>
+ </head>
+ <body>
+  <h1 id="vmovie">
+   VMovie(看电影)
+  </h1>
+  <h2 id="app-peixunban">
+   一个电影分享收藏下载的App, 基于软件工程理论构建项目，从需求调研到概念设计，逻辑设计......到编码......测试......严格按照软件工程完成项目，从此跟那些peixunban不一样
+  </h2>
+  <h3 id="english-proposal-for-the-app">
+   English Proposal for the App
+  </h3>
+  <p>
+   <strong>
+    1 Introduction
+   </strong>
+   <br/>
+   My project aims to implement a movie tracking app based on douban apis and using the crawler to get the download links. The app can browse the latest or the hottest movie brief information and movie charts and so on. Of course, you can get the detail information of the movie. You can also collect movies and download the movie to local.
+  </p>
+  <p>
+   <strong>
+    2 Techniques
+   </strong>
+   <br/>
+   1) Java and python programming language skills
+   <br/>
+   2) Mysql DB
+   <br/>
+   3) Android device
+   <br/>
+   4) Linux cloud server
+  </p>
+  <p>
+   <strong>
+    3 Working plan
+   </strong>
+   <br/>
+   1) First, get the apis, then fetch and clearing up the data
+   <br/>
+   2) Second, design database for data.
+   <br/>
+   2) Design restful apis for providing local data.
+   <br/>
+   3) Crawler the download link.
+   <br/>
+   3) Design and development of app.
+   <br/>
+   4) Write the document and submit.
+  </p>
+  <h2 id="chinese-version">
+   Chinese Version
+  </h2>
+  <h3 id="_1">
+   一、项目计划
+  </h3>
+  <ol>
+   <li>
+    先完成前期调研，在进行设计
+   </li>
+   <li>
+    本项目主要是基于现有的API获取数据，暂定目标网站api为豆瓣
+   </li>
+   <li>
+    从豆瓣获取的api可以获取到相关电影的详细信息，但无法拿到下载链接，这里将会使用爬虫手段到固定网址爬取，暂定目标网站为
+    <a href="http://www.6vhao.tv">
+     6v
+    </a>
+    ， 通过搜索api获取结果，再从结果界面获取下载链接
+   </li>
+   <li>
+    工具：
+    <ul>
+     <li>
+      Android Studio
+     </li>
+     <li>
+      MySQL数据库
+     </li>
+     <li>
+      阿里云ECS
+     </li>
+     <li>
+      SpringBoot
+     </li>
+     <li>
+      OkHttp 爬虫 JSoup网页解析工具
+     </li>
+    </ul>
+   </li>
+  </ol>
+  <h3 id="_2">
+   二、需求调研
+  </h3>
+  <ol>
+   <li>
+    数据传输需求有json和xml数据混合使用，需求中存在xml文件的解析，有与之对应的xsd文件，该部分将用于收藏数据的传输，
+   </li>
+   <li>
+    首先有用户这一概念，所有数据均从API获取，不存于本地 用户界面包括登录， 注册， 首页， 收藏页， 电影详情页， 个人简单页， 关于 共七个页面
+   </li>
+   <li>
+    其次有登录，注册界面，简单实现即可，无需复杂。注册输入用户名密码结，登录输入用户名密码即可，头像随机抽取一个，来源于app本身resource文件
+   </li>
+   <li>
+    首页顶部有标签栏，区分不同类型的电影，标签栏下显示电影简略信息，包括图片，标题等。
+   </li>
+   <li>
+    详情页提供电影的其他信息，包括评分，评论列表，提供下载链接，但不提供下载，需使用下载工具进行下载
+   </li>
+   <li>
+    个人简单页有收藏入口，退出登录，关于等入口，
+   </li>
+   <li>
+    收藏界与首页列表相似
+   </li>
+   <li>
+    关于界面展示作者信息，github信息。
+   </li>
+  </ol>
+  <h3 id="_3">
+   三、概要设计
+  </h3>
+  <h5 id="1">
+   1.总述
+  </h5>
+  <p>
+   这是一款电影信息分享平台，主要从数据源获取数据并进行展示，基于用户系统，数据在服务端可以进行持久化。
+  </p>
+  <h5 id="2">
+   2.总体设计
+  </h5>
+  <p>
+   1.分层： 展示层， 业务层， 数据层，
+   <br/>
+   2.数据层： 使用豆瓣api获取电影基本数据，使用Springboot构建自己的restapi,提供xml格式的数据，数据使用mysql存储。
+   <br/>
+   3.业务层： 通过客户端的事件响应，从api获取数据并返回，处理业务逻辑
+   <br/>
+   4.展示层： 将数据进入展示。
+  </p>
+  <h5 id="3api">
+   3.API列表:
+  </h5>
+  <pre><code>正在热映(返回json数据)
+GET /v2/movie/in_theaters  (count=?&amp;start=?)
+即将上映(返回json数据)
+GET /v2/movie/coming_soon  (count=?&amp;start=?)
+Top250(返回json数据)
+GET /v2/movie/top250   (count=?&amp;start=?)
+北美票房榜(返回json数据)
+GET /v2/movie/us_box
+电影条目信息(返回json数据)
+GET /v2/movie/subject/:id    (1764796)
+添加收藏(自定义接口，返回json数据)
+POST /collection (post json数据)
+删除收藏(自定义接口，返回json数据)
+DELETE /:username/collection/:movie_id
+自定义收藏列表(自定义接口，返回xml数据)
+GET /:username/collections/
+下载链接获取(自定义接口，返回json数据)
+GET /search/:moviename(自定义接口，返回json数据)
+注册(自定义接口，返回json数据)
+POST /register 提交内容username passwd 进行加密处理
+登录(自定义接口，返回json数据)
+POST /login     提交内容id passwd 进行加密处理
+</code></pre>
+  <h3 id="_4">
+   四、详细设计
+  </h3>
+  <h4 id="1_1">
+   1. 数据库设计
+  </h4>
+  <p>
+   <strong>
+    服务端数据库设计
+   </strong>
+   (简单为主)
+   <br/>
+   - user表　username(primary key), password(密文)
+   <br/>
+   - movie_collections 表 username(primary key), movie_id(primary key), data(从豆瓣api获取的json数据)
+  </p>
+  <h4 id="2_1">
+   2. 模块设计
+  </h4>
+  <h5 id="21">
+   2.1 整体架构
+  </h5>
+  <p>
+   客户端采用mvp设计模式搭建app,　服务端使用springboot, 数据库使用mysql
+  </p>
+  <h5 id="22">
+   2.2 后端设计
+  </h5>
+  <p>
+   <img alt=" " src="image/MovieLink.png" title="arch"/>
+  </p>
+  <h6 id="221-springbootmybatis">
+   2.2.1 使用springboot+mybatis对外提供服务接口
+  </h6>
+  <ul>
+   <li>
+    注册接口　POST /register 提交两个参数，username和password(密文),拦截到请求后执行插入数据库操作并返回结果.
+   </li>
+   <li>
+    登录接口　POST /login 提交两个字段，username和password,拦截后查询数据库是否匹配并返回结果。
+   </li>
+   <li>
+    添加收藏接口　POST /collection/ 提交两个字段，movie_id 和username, 拦截后获取字段信息插入数据库并返回结果。
+   </li>
+   <li>
+    查看收藏接口　POST /collections/:username  提交一个字段，查询数据库并返回结果列表，已xml格式数据返回
+   </li>
+   <li>
+    删除收藏接口　DELETE /collection  提交两个字段，movie_id 和username, 拦截后获取字段信息删除数据库字段并返回结果。
+   </li>
+   <li>
+    查找电影接口 /search/moviename 提交一个字段，moviename　返回一个列表
+   </li>
+  </ul>
+  <h6 id="222-xml-schama-moviexsd">
+   2.2.2 XML Schama文件格式 (movie.xsd)
+  </h6>
+  <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://www.w3schools.com"
+xmlns="http://www.w3schools.com"
+elementFormDefault="qualified"&gt;
+&lt;xs:element name="movie"&gt;
+  &lt;xs:complexType&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="id" type="xs:string"/&gt;
+      &lt;xs:element name="data" type="xs:string"/&gt;
+    &lt;/xs:sequence&gt;
+  &lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</code></pre>
+  <h6 id="223-xml">
+   2.2.3 XML 传输文件
+  </h6>
+  <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;movies xmlns="http://www.microsoft.com"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:SchemaLocation="http://*movie.xsd"&gt;
+&lt;movie&gt;
+    &lt;id&gt;1111&lt;/id&gt;
+    &lt;data&gt;{.....}&lt;/data&gt;
+&lt;/movie&gt;
+&lt;movie&gt;
+    &lt;id&gt;1112&lt;/id&gt;
+    &lt;data&gt;{.....}&lt;/data&gt;
+&lt;/movie&gt;
+&lt;/movies&gt;
+</code></pre>
+  <h5 id="23-android">
+   2.3 Android端设计
+  </h5>
+  <h6 id="231-mvp">
+   2.3.1 框架mvp
+  </h6>
+  <p>
+   1.BaseView 定义baseView
+  </p>
+  <pre><code>public interface BaseView&lt;T&gt; {
+
+    void setPresenter(T presenter);
+
+}
+</code></pre>
+  <p>
+   2.BasePresenter 定义basePresenter
+  </p>
+  <pre><code>public interface BasePresenter {
+
+    void start();
+
+}
+</code></pre>
+  <p>
+   3.Contract 定义具体接口
+  </p>
+  <pre><code>public interface Contract {
+    interface View extends BaseView&lt;Presenter&gt; {
+    }    
+    interface Presenter extends BasePresenter {
+    }
+}
+</code></pre>
+  <h6 id="232">
+   2.3.2 项目结构
+  </h6>
+  <p>
+   <img alt=" arch" src="image/arch.png"/>
+   分为七个包
+   <br/>
+   <img alt=" arch" src="image/arch1.png"/>
+   每个包下的实现
+  </p>
+  <h4 id="3">
+   3. 界面设计
+  </h4>
+  <p>
+   <img alt="登录" src="image/image_1.png"/>
+   <img alt=" 注册" src="image/image_2.png"/>
+   <img alt=" 主页面" src="image/image_3.png"/>
+   <img alt=" 设置" src="image/image_4.png"/>
+   <img alt=" 收藏" src="image/image_5.png"/>
+   <img alt=" 左划删除" src="image/image_6.png"/>
+   <img alt=" 关于" src="image/image_7.png"/>
+   <img alt=" 详细" src="image/image_8.png"/>
+   <img alt=" 下载入口" src="image/image_9.png"/>
+   <img alt=" 复制链接" src="image/image_10.png"/>
+  </p>
+  <h3 id="_5">
+   五、工具
+  </h3>
+  <p>
+   用到的工具
+   <br/>
+   - xml解析工具
+   <a href="https://github.com/dom4j/dom4j">
+    dom4j
+   </a>
+   <br/>
+   - http请求库
+   <a href="https://github.com/square/okhttp">
+    okhttp
+   </a>
+   <br/>
+   - json解析
+   <a href="https://github.com/alibaba/fastjson">
+    fastjson
+   </a>
+   <br/>
+   - 异步
+   <a href="https://github.com/ReactiveX/RxJava">
+    RxJava
+   </a>
+   <br/>
+   - 网络
+   <a href="https://github.com/square/retrofit">
+    retrofit
+   </a>
+   <br/>
+   - 图片加载
+   <a href="https://github.com/bumptech/glide">
+    glide
+   </a>
+   <br/>
+   - 注入
+   <a href="https://github.com/JakeWharton/butterknife">
+    butterknife
+   </a>
+   <br/>
+   - 权限管理
+   <a href="https://github.com/googlesamples/easypermissions">
+    easypermission
+   </a>
+   <br/>
+   - springboot
+   <a href="https://github.com/topics/springboot">
+    springboot
+   </a>
+   <br/>
+   - jsoup
+   <a href="https://github.com/jhy/jsoup">
+    jsoup
+   </a>
+  </p>
+  <h3 id="_6">
+   六、测试
+  </h3>
+  <h6 id="postman">
+   使用Postman测试接口
+  </h6>
+  <h3 id="_7">
+   七、部署
+  </h3>
+  <p>
+   vmovie.jar 部署在阿里云ECS. vmovie.apk 安装在android手机上
+  </p>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js">
+  </script>
+  <script>
+   hljs.initHighlightingOnLoad();
+  </script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+   MathJax.Hub.Config({"showProcessingMessages" : false,"messageStyle" : "none","tex2jax": { inlineMath: [ [ "$", "$" ] ] }});
+  </script>
+ </body>
+</html>

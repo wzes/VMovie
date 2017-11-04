@@ -54,7 +54,6 @@ public class DownloadActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
-
         initData();
     }
 
@@ -64,24 +63,30 @@ public class DownloadActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch(msg.what) {
                 case 0:
-                    downloadAdapter = new DownloadAdapter(R.layout.download_item, list);
+                    if(list.size() == 0) {
+                        Toast.makeText(DownloadActivity.this, "没有找到相关下载", Toast.LENGTH_SHORT).show();
+                    }else {
+                        downloadAdapter = new DownloadAdapter(R.layout.download_item, list);
 
-                    ItemDragAndSwipeCallback itemDragAndSwipeCallback = new ItemDragAndSwipeCallback(downloadAdapter);
-                    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
-                    itemTouchHelper.attachToRecyclerView(downloadRecycler);
+                        ItemDragAndSwipeCallback itemDragAndSwipeCallback = new ItemDragAndSwipeCallback(downloadAdapter);
+                        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
+                        itemTouchHelper.attachToRecyclerView(downloadRecycler);
 
-                    downloadRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    downloadRecycler.setAdapter(downloadAdapter);
+                        downloadRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                        downloadRecycler.setAdapter(downloadAdapter);
 
-                    downloadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                            // 将文本内容放到系统剪贴板里。
-                            cm.setText(list.get(position).getLink());
-                            Toast.makeText(DownloadActivity.this, "已复制下载链接到剪贴板", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        downloadAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                                // 将文本内容放到系统剪贴板里。
+                                cm.setText(list.get(position).getLink());
+                                Toast.makeText(DownloadActivity.this, "已复制下载链接到剪贴板", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+
                     break;
                 case 1:
                     Toast.makeText(DownloadActivity.this, "网络不太好", Toast.LENGTH_SHORT).show();
