@@ -101,6 +101,7 @@ public class UsBoxFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
+                        Toast.makeText(getContext(), "网络不太好", Toast.LENGTH_LONG).show();
                         usBoxRefresh.setRefreshing(false);
                     }
 

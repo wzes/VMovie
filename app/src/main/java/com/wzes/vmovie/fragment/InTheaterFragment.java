@@ -181,6 +181,7 @@ public class InTheaterFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
+                        Toast.makeText(getContext(), "网络不太好", Toast.LENGTH_LONG).show();
                         inTheaterRefresh.setRefreshing(false);
                     }
 

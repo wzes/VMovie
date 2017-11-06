@@ -175,6 +175,7 @@ public class Top250Fragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
+                        Toast.makeText(getContext(), "网络不太好", Toast.LENGTH_LONG).show();
                         top250Refresh.setRefreshing(false);
                     }
 

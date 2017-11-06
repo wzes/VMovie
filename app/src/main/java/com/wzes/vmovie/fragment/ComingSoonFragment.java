@@ -179,6 +179,7 @@ public class ComingSoonFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
+                        Toast.makeText(getContext(), "网络不太好", Toast.LENGTH_LONG).show();
                         comingSoonRefresh.setRefreshing(false);
                     }
 
