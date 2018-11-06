@@ -1,6 +1,15 @@
 package com.wzes.vmovie;
 
+import android.util.Log;
+
 import org.junit.Test;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 
 import static org.junit.Assert.*;
 
@@ -14,4 +23,10 @@ public class ExampleUnitTest {
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void RxjavaTest() {
+
+    }
+
 }

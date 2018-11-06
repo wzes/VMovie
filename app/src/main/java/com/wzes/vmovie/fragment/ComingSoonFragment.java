@@ -219,27 +219,33 @@ public class ComingSoonFragment extends Fragment {
                             }
                         }, comingSoonRecyclerView);
 
-                        comingSoonRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-                        comingSoonRecyclerView.setAdapter(movieAdapter);
+                        if(comingSoonRefresh != null) {
+                            comingSoonRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+                            comingSoonRecyclerView.setAdapter(movieAdapter);
 
-                        movieAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-                                intent.putExtra("id", list.get(position).getId());
-                                intent.putExtra("title", list.get(position).getTitle());
-                                intent.putExtra("image", list.get(position).getImage());
-                                intent.putExtra("rating", list.get(position).getRating());
-                                startActivity(intent);
-                            }
-                        });
-                        comingSoonRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                            @Override
-                            public void onRefresh() {
-                                refreshData();
-                            }
-                        });
-                        comingSoonRefresh.setRefreshing(false);
+                            movieAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                    Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                                    intent.putExtra("id", list.get(position).getId());
+                                    intent.putExtra("title", list.get(position).getTitle());
+                                    intent.putExtra("image", list.get(position).getImage());
+                                    intent.putExtra("rating", list.get(position).getRating());
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+
+                        if(comingSoonRefresh != null) {
+                            comingSoonRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                                @Override
+                                public void onRefresh() {
+                                    refreshData();
+                                }
+                            });
+                            comingSoonRefresh.setRefreshing(false);
+                        }
+
                     }
                 });
     }

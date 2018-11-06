@@ -215,27 +215,31 @@ public class Top250Fragment extends Fragment {
                             }
                         }, top250RecyclerView);
 
-                        top250RecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-                        top250RecyclerView.setAdapter(movieAdapter);
+                        if(top250RecyclerView != null) {
+                            top250RecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+                            top250RecyclerView.setAdapter(movieAdapter);
 
-                        movieAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-                                intent.putExtra("id", list.get(position).getId());
-                                intent.putExtra("title", list.get(position).getTitle());
-                                intent.putExtra("image", list.get(position).getImage());
-                                intent.putExtra("rating", list.get(position).getRating());
-                                startActivity(intent);
-                            }
-                        });
-                        top250Refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                            @Override
-                            public void onRefresh() {
-                                refreshData();
-                            }
-                        });
-                        top250Refresh.setRefreshing(false);
+                            movieAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                    Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                                    intent.putExtra("id", list.get(position).getId());
+                                    intent.putExtra("title", list.get(position).getTitle());
+                                    intent.putExtra("image", list.get(position).getImage());
+                                    intent.putExtra("rating", list.get(position).getRating());
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                        if(top250Refresh != null) {
+                            top250Refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                                @Override
+                                public void onRefresh() {
+                                    refreshData();
+                                }
+                            });
+                            top250Refresh.setRefreshing(false);
+                        }
                     }
                 });
     }

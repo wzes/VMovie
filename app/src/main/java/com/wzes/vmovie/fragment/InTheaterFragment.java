@@ -22,6 +22,7 @@ import com.wzes.vmovie.service.BaseUrlService;
 import com.wzes.vmovie.service.MyRetrofit;
 import com.wzes.vmovie.util.CustomLoadMoreView;
 import com.wzes.vmovie.util.DoubanData;
+import com.wzes.vmovie.util.MyLog;
 import com.wzes.vmovie.util.OnLoadMoreListener;
 
 import java.io.IOException;
@@ -71,6 +72,7 @@ public class InTheaterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_in_theater, container, false);
         unbinder = ButterKnife.bind(this, view);
         initData();
+        MyLog.i("onCreateView");
         return view;
     }
 
@@ -221,27 +223,32 @@ public class InTheaterFragment extends Fragment {
                             }
                         }, inTheaterRecyclerView);
 
-                        inTheaterRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-                        inTheaterRecyclerView.setAdapter(movieAdapter);
+                        if(inTheaterRecyclerView != null) {
+                            inTheaterRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+                            inTheaterRecyclerView.setAdapter(movieAdapter);
 
-                        movieAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-                                intent.putExtra("id", list.get(position).getId());
-                                intent.putExtra("title", list.get(position).getTitle());
-                                intent.putExtra("image", list.get(position).getImage());
-                                intent.putExtra("rating", list.get(position).getRating());
-                                startActivity(intent);
-                            }
-                        });
-                        inTheaterRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                            @Override
-                            public void onRefresh() {
-                                refreshData();
-                            }
-                        });
-                        inTheaterRefresh.setRefreshing(false);
+                            movieAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                    Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                                    intent.putExtra("id", list.get(position).getId());
+                                    intent.putExtra("title", list.get(position).getTitle());
+                                    intent.putExtra("image", list.get(position).getImage());
+                                    intent.putExtra("rating", list.get(position).getRating());
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+
+                        if(inTheaterRefresh != null) {
+                            inTheaterRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                                @Override
+                                public void onRefresh() {
+                                    refreshData();
+                                }
+                            });
+                            inTheaterRefresh.setRefreshing(false);
+                        }
                     }
                 });
     }

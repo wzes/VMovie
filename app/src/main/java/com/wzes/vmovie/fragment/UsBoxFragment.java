@@ -152,27 +152,33 @@ public class UsBoxFragment extends Fragment {
                         itemTouchHelper.attachToRecyclerView(usBoxRecyclerView);
                         movieAdapter.setEnableLoadMore(false);
 
-                        usBoxRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-                        usBoxRecyclerView.setAdapter(movieAdapter);
+                        if(usBoxRecyclerView != null) {
+                            usBoxRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+                            usBoxRecyclerView.setAdapter(movieAdapter);
 
-                        movieAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-                                intent.putExtra("id", list.get(position).getId());
-                                intent.putExtra("title", list.get(position).getTitle());
-                                intent.putExtra("image", list.get(position).getImage());
-                                intent.putExtra("rating", list.get(position).getRating());
-                                startActivity(intent);
-                            }
-                        });
-                        usBoxRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                            @Override
-                            public void onRefresh() {
-                                refreshData();
-                            }
-                        });
-                        usBoxRefresh.setRefreshing(false);
+                            movieAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                    Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                                    intent.putExtra("id", list.get(position).getId());
+                                    intent.putExtra("title", list.get(position).getTitle());
+                                    intent.putExtra("image", list.get(position).getImage());
+                                    intent.putExtra("rating", list.get(position).getRating());
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+
+                        if(usBoxRefresh != null) {
+                            usBoxRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                                @Override
+                                public void onRefresh() {
+                                    refreshData();
+                                }
+                            });
+                            usBoxRefresh.setRefreshing(false);
+                        }
+
                     }
                 });
     }
